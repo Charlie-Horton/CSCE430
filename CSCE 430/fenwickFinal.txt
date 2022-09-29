@@ -1,0 +1,137 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <iostream>
+#include <array>
+/*
+string parsing
+use array initialize as 0 of max size
+
+functions: initialize array to 0
+            flip bit
+            query 1s and display results
+*/
+using namespace std;
+
+/*
+int startingIndexOfFenwick(int i){ //return i-LSOne(i)+1
+    int lsOne = i & -i;
+    return (i-lsOne+1);
+}
+int bCompliment(int b, int mem[], int* sum){
+    if(b == 0){
+        return 0;
+    }
+    int startAt = startingIndexOfFenwick(b);
+    int finishAt = b;
+    
+    for(;startAt <= finishAt; startAt++){
+        (*sum) += mem[startAt];
+    }
+    b = b - (b & -b);
+    bCompliment(b, mem, sum);
+}*/
+int sum(int mem[], int index){
+    int total = 0;
+    for(int i = index; i > 0; i &= (i-1)) {
+        total += mem[i-1];
+    }
+    return total;
+}
+void update(int mem[], int index, int value, int arraySize) {
+    for(int i = index; i <= arraySize; i |= i+1) {
+        mem[i] += value;
+       // cout << "i: " << i << " mem[i] " << mem[i] << endl;
+    }
+}
+/*int query(int l, int r, int a, int b, int k, int* sum, int mem[]){
+    cout << "l= " << l << " r= " << r << " a= " << a << " b= " << b 
+    << " k= " << k << endl;
+    
+    if(k > sizeof(mem) || k <= 0){
+        return 0;
+    }
+    else{
+    if((a==l) && (b==r)){
+        return (*sum) = (*sum) + mem[k];
+    }
+    else if(b <= (l+r)/2 && a < (l+r)/2){
+       return query(l, (l+r)/2, a, b, 2*k, sum, mem);    
+    }
+    else if(a >= (l+r)/2 && b > (l+r)/2){
+        return query(((l+r)/2)+1, r, a, b, 2*k+1, sum, mem);
+    }
+    else {
+        query(l, (l+r)/2, a, (l+r)/2, 2*k, sum, mem);
+        query(((l+r)/2)+1, r, ((l+r)/2)+1, b, 2*k+1, sum, mem);
+    }
+    }
+    k = k-(k & -k);
+}
+*/
+/*void update(int updateLocation, int sizeOfArray, int numToAdd, int mem[]){
+    while(updateLocation <= sizeOfArray){
+        mem[updateLocation] += numToAdd;
+        updateLocation = updateLocation + (updateLocation & (-updateLocation));
+    }
+}*/
+int main()
+{
+   // cout << startingIndexOfFenwick(12) << endl;
+    int sum1 = 0;
+    int sum2 = 0;
+    /* int mem[15] = {0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1};
+    bCompliment(12, mem, &sum1);
+    bCompliment(5, mem, &sum2);
+    cout << sum1 - sum2;
+    */
+    
+    int* mem; 
+    int numBits, numQueries;
+    cin >> numBits >> numQueries;
+    mem = (int*)malloc(sizeof(int)*(numBits+1));
+    
+    for(int i = 0; i <= numBits; i++){
+        mem[i] = 0;
+    }
+    char command;
+    int l, r, flipIndex;
+    for(int i = 0; i < numQueries; i++){
+        cin >> command;
+        
+        if(command == 'F'){
+            cin >> flipIndex;
+            int memValue = sum(mem, flipIndex+1) - sum(mem, flipIndex);
+            int numToAdd = 1;
+            if(memValue == 1){
+                numToAdd = -1;
+            }
+            update(mem, flipIndex, numToAdd, numBits);
+          //  cout << "i: " << 3 << " mem[i] " << mem[3] << endl;
+            //mem[flipIndex]^=1;
+        }
+        else{
+         //   cout << "inside else" << endl;
+            cin >> l >> r;
+            int countL = 0;
+            int countR = 0;
+          //  int sum = 0;
+            cout << sum(mem, r+1) - sum(mem, l) << endl;
+         //   query(0, numBits, 1, r, r, &countL, mem);
+          //  query(0, numBits, 1, r, r, &countR, mem);
+           // cout << sum << endl;
+           // bCompliment(l, mem, &countL);
+          //  bCompliment(r, mem, &countR);
+            
+         //   cout << countR - countL << endl;
+        }
+    }
+  //  cout << "finished" << endl;
+    return 0;
+}

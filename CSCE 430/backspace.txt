@@ -1,0 +1,23 @@
+// Example program
+#include <iostream>
+#include <string>
+
+using namespace std;
+int main()
+{
+  string input;
+  string output = "";
+  cin >> input;
+  
+  for(int i = 0; i < input.size(); i++){
+      char temp = input.at(i);
+      
+      if(temp == '<'){
+          output.pop_back();
+      }
+      else{
+          output.push_back(temp);
+      }
+  }
+  cout << output;
+}

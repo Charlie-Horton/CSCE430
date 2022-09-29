@@ -1,0 +1,79 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <iostream>
+/*
+string parsing
+use array initialize as 0 of max size
+
+functions: initialize array to 0
+            flip bit
+            query 1s and display results
+*/
+using namespace std;
+
+
+int startingIndexOfFenwick(int i){ //return i-LSOne(i)+1
+    int lsOne = i & -i;
+    return (i-lsOne+1);
+}
+int bCompliment(int b, int mem[], int* sum){
+    if(b == 0){
+        return 0;
+    }
+    int startAt = startingIndexOfFenwick(b);
+    int finishAt = b;
+    
+    for(;startAt <= finishAt; startAt++){
+        (*sum) += mem[startAt];
+    }
+    b = b - (b & -b);
+    bCompliment(b, mem, sum);
+}
+int main()
+{
+    int sum1 = 0;
+    int sum2 = 0;
+    int mem[15] = {0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1};
+    bCompliment(12, mem, &sum1);
+    bCompliment(5, mem, &sum2);
+    cout << sum1 - sum2;
+   /* char* mem; 
+    int numBits, numQueries;
+    cin >> numBits >> numQueries;
+    mem = (char*)malloc(sizeof(char)*(numBits+1));
+    
+    for(int i = 0; i < numBits+1; i++){
+        mem[i] = 0;
+    }
+    char command;
+    int l, r, flipIndex;
+    for(int i = 0; i < numQueries; i++){
+        cin >> command;
+        
+        if(command == 'F'){
+            cin >> flipIndex;
+            mem[flipIndex]^=1;
+        }
+        else{
+            cin >> l >> r;
+            
+            int count = 0;
+            for(int j = l; j <= r; j++){
+                if(mem[j] != 0){
+                 //  cout << "found a 1" << endl;
+                    count++;
+                }
+            }
+            cout << count << endl;
+        }
+    }
+    */
+    return 0;
+}

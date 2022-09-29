@@ -1,0 +1,91 @@
+    /******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <iostream>
+#include <cmath> 
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+bool isHappy(vector<pair<int, int>> v, int startX, int startY, int endX, int endY){
+    bool flag = true;
+    int dis;
+    for(int j = 0; j < v.size(); j++){
+        int x2, y2, dis;
+        x2 = v[j].first;
+        y2 = v[j].second;
+            
+        dis = (x2-startX) + (y2-startY);
+            
+        if(dis > 1000){
+            flag = false;
+        }
+            
+        startX = x2;
+        startY = y2;
+    }
+    if(v.size() == 0){
+        dis = abs(endX-startX) + abs(endY-startY);
+    }
+    else{
+        dis = (endX - v[v.size()-1].first) + (endY - v[v.size()-1].second);
+    }
+    if(dis > 1000){
+        flag = false;
+    }
+    return flag;
+}
+int main()
+{
+    int t;
+    cin >> t;
+    
+    for(int i = 0; i < t; i++){
+        int n;
+        int startX, startY, endX, endY;
+        bool flag = true;
+        vector<pair<int, int>> locations;
+        vector<pair<int, int>> revLocations;
+        cin >> n;
+        cin >> startX >> startY;
+        
+        for(int j = 0; j < n; j++){
+            int x, y;
+            cin >> x >> y;
+            locations.push_back(make_pair(x, y));
+            revLocations.push_back(make_pair(y, x));
+        }
+        
+        if(n > 0){
+            sort(locations.begin(), locations.end());
+            sort(revLocations.begin(), revLocations.end());
+        }
+        /*
+        for(int k = 0; k < locations.size(); k++){
+            cout << locations[k].first << " " << locations[k].second << endl;
+        }
+        */
+        cin >> endX >> endY;
+
+        
+        flag = isHappy(locations, startX, startY, endX, endY);
+       /* if(!flag){
+            flag = isHappy(revLocations, startX, startY, endX, endY);
+        }*/
+    
+        if(flag){
+            cout << "happy" << endl;
+        }
+        else{
+            cout << "sad" << endl;
+        }
+    }
+    return 0;
+}

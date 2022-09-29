@@ -1,0 +1,29 @@
+// Example program
+#include <iostream>
+#include <string>
+#include <vector>
+#include <bits/stdc++.h>
+#include <algorithm>
+
+using namespace std;
+int main()
+{
+ int n, m;
+ cin >> n >> m;
+ int store[n];
+ long long int waste = 0;
+ for(int i = 0; i < n; i++){
+     int in;
+     cin >> in;
+     store[i] = in;
+ }
+ sort(store, store + n);
+ for(int i = 0; i < m; i++){
+     int in;
+     cin >> in;
+     auto low = lower_bound(store, store + n, in);
+     int buy = store[(low - store)];
+     waste += (buy - in);
+ }
+ cout << waste << endl;
+}

@@ -1,0 +1,66 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+bool overlap(vector<double> v, double mow, int distance){
+    if(v[0] - mow/2 > 0){
+        return false;
+    }
+    if(v[v.size()-1]+mow/2 < distance){
+        return false;
+    }
+    for(int i = 0; i < v.size()-1; i++){
+        if(v[i+1] - v[i] > mow){
+            return false;
+        }
+    }
+    return true;
+}
+int main()
+{
+    int nx, ny;
+    double mow;
+    
+    while(cin >> nx >> ny >> mow && nx != 0 && ny != 0 && mow != 0){
+        vector<double> w, l;
+        
+        for(int i = 0; i < nx; i++){
+            double tmp;
+            cin >> tmp;
+            w.push_back(tmp);
+        }
+        for(int i = 0; i < ny; i++){
+            double tmp;
+            cin >> tmp;
+            l.push_back(tmp);
+        }
+        
+        sort(w.begin(), w.end());
+        sort(l.begin(), l.end());
+        
+        bool lFlag, wFlag;
+        lFlag = overlap(l, mow, 100);
+        wFlag = overlap(w, mow, 75);
+        
+       // cout << "lFlag " << lFlag << " wFlag " << wFlag << endl;
+        if(lFlag && wFlag){
+            cout << "YES" << endl;
+        }
+        else{
+            cout << "NO" << endl;
+        }
+    }
+
+    return 0;
+}

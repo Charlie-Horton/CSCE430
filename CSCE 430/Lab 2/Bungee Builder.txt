@@ -1,0 +1,45 @@
+// Example program
+#include <iostream>
+#include <string>
+
+using namespace std;
+int main()
+{
+    int n;
+    cin >> n;
+    int h[n];
+    int maxMount = 0;
+    int maxSpot = 0;
+    int mount;
+    for(int i = 0; i < n; i++){
+        cin >> mount;
+        if(maxMount < mount){
+            maxMount = mount;
+            maxSpot = i;
+        }
+        h[i] = mount;
+    }
+    
+    int maxJump = 0;
+    int jump;
+    int maxMountL = 0;
+    for(int i = 0; i < maxSpot; i++){
+        if(maxMountL < h[i]){
+            maxMountL = h[i];
+        }
+        jump = maxMountL - h[i];
+        if(maxJump < jump)
+            maxJump = jump;
+    }
+    
+    int maxMountR = 0;
+    for(int i = n-1; i > maxSpot; i--){
+        if(maxMountR < h[i]){
+            maxMountR = h[i];
+        }
+        jump = maxMountR - h[i];
+        if(maxJump < jump)
+            maxJump = jump;
+    }
+    cout << maxJump << endl;
+}

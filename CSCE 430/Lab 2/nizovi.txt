@@ -1,0 +1,44 @@
+// Example program
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+ string s;
+ cin >> s;
+ string indent = "";
+ string output = "";
+ char c;
+ char prev = ' ';
+ for(int i = 0; i < s.size(); i++){
+    c = s.at(i);
+    if(c == '{'){
+        indent.push_back(' ');
+        indent.push_back(' ');
+        output += "{\n";
+        output += indent;
+    }
+    else if(c == '}'){
+        indent.pop_back();
+        indent.pop_back();
+        if(prev == '{'){
+            output.pop_back();
+            output.pop_back();
+            output += "}";
+        }
+        else
+            output += "\n" + indent + "}";
+    }
+    else if(c == ','){
+        output += ",\n";
+        output += indent;
+    }
+    else{
+        output += c;
+    }
+    prev = c;
+ }
+ cout << output << endl;
+}

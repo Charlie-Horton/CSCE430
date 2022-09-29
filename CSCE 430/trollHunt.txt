@@ -1,0 +1,15 @@
+// Example program
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+int main()
+{
+  double b, k, g;
+  cin >> b >> k >> g;
+  
+  double numGroups = floor(k/g);
+  b--;
+  cout << ceil(b/numGroups);
+}

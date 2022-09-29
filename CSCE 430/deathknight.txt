@@ -1,0 +1,26 @@
+// Example program
+#include <iostream>
+#include <string>
+
+using namespace std;
+int main()
+{
+ int n;
+ cin >> n;
+ int wins = 0;
+ for(int i = 0; i < n; i++){
+    string k;
+    cin >> k;
+    bool won = true;
+    char curr;
+    char prev = '';
+    int size = k.size();
+    for(int j = 0; j < (size-1); j++){
+        if(k.at(j) == 'C' && k.at(j+1) == 'D')
+            won = false;
+    }
+    if(won)
+        wins++;
+ }
+ cout << wins;
+}

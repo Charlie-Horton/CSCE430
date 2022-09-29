@@ -1,0 +1,46 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+#include <bits/stdc++.h> 
+
+using namespace std;
+int main()
+{
+    int cx, cy, n;
+    cin >> cx >> cy >> n;
+    int x, y, r;
+    int distance[n];
+    int ans;
+    int prev;
+    int withinRange = 0;
+    for(int i = 0; i < n; i++){
+        cin >> x >> y >> r;
+        distance[i] = sqrt(pow(cx-x, 2) + pow(cy-y, 2)) - r;
+    }
+    sort(distance, distance + n);
+    
+    int CurR = 0;
+    int countDevice;
+    bool breaker = false;
+    while(!breaker){
+        CurR++;
+        countDevice = 0;
+        for(int i = 0; i < n; i++){
+            if(CurR > distance[i]){
+                countDevice++;
+            }
+        }
+        if(countDevice > 2){
+            breaker = true;
+        }
+    }
+    cout << CurR - 1;
+    
+    return 0;
+}

@@ -1,0 +1,27 @@
+// Example program
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int n, m;
+    
+    cin >> n >> m;
+    
+    int small = n+1;
+    int large = m+1;
+    int temp;
+    
+    if(small > large){
+        temp = small;
+        small = large;
+        large = temp;
+    }
+    
+    
+    for(int i = small; i <= large; i++){
+        cout << i << endl;
+    }
+    
+}

@@ -1,0 +1,39 @@
+// Example program
+#include <iostream>
+#include <string>
+#include <vector> 
+#include <algorithm>
+
+using namespace std;
+int main()
+{
+    int w, p;
+    cin >> w >> p;
+    vector<int> l;
+    int temp;
+    vector<int> sizes;
+    
+    l.push_back(0);
+    for(int i = 0; i < p; i++){
+        cin >> temp;
+        l.push_back(temp);
+    }
+    l.push_back(w);
+    
+    for(int i = l.size()-1; i > 0; i--){
+        for(int j = 0; j < i; j++){
+           // cout << l.at(i) << " - " << l.at(j) << endl;
+            temp = l.at(i) - l.at(j);
+            sizes.push_back(temp);
+        }
+    }
+    sizes.push_back(w);
+    
+    sort(sizes.begin(), sizes.end());
+    vector<int>::iterator ip = unique(sizes.begin(), sizes.end());
+    sizes.resize(distance(sizes.begin(), ip));
+    
+    for(int i = 0; i < sizes.size(); i++)
+        cout << sizes.at(i) << " ";
+}
+

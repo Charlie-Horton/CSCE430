@@ -1,0 +1,44 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <vector>
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+int main()
+{
+    int T;
+    cin >> T;
+    
+    for(int i = 0; i < T; i++){
+        unordered_map<long long, int> occurrences;
+        int N;
+        cin >> N;
+        long long counter = 0;
+        occurrences[0] = 1;
+        long long last = 0;
+        long long current = 0;
+        for (int i = 0; i < N; i++) {
+            cin >> current;
+            current += last;
+            long long key = current - 47;
+            if (occurrences.find(key) != occurrences.end()) {
+                counter += occurrences[key];
+            }
+            if (occurrences.find(current) == occurrences.end()) {
+                occurrences[current] = 0;
+            }
+            occurrences[current]++;
+            last = current;
+        }
+      cout << counter << endl;
+    }
+
+    return 0;
+}

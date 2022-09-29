@@ -1,0 +1,39 @@
+// Example program
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    int T;
+    cin >> T;
+    
+    for(int i = 0; i < T; i++){
+        long long int Ncs, Ne;
+        cin >> Ncs >> Ne;
+        int cs[Ncs];
+        int econ[Ne];
+        long long csIQ = 0;
+        long long econIQ = 0;
+        
+        for(int j = 0; j < Ncs; j++){
+            cin >> cs[j];
+            csIQ += cs[j];
+        }
+        for(int j = 0; j < Ne; j++){
+            cin >> econ[j];
+            econIQ += econ[j];
+        }
+        double csAv = (double)csIQ/(double)Ncs;
+        double econAv = (double)econIQ/(double)Ne;
+        int funny = 0;
+        
+        for(int j = 0; j < Ncs; j++){
+            if(cs[j] < csAv)
+                if(cs[j] > econAv)
+                    funny++;
+        }
+        cout << funny << endl;
+    }
+}

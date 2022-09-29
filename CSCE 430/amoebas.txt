@@ -1,0 +1,58 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <iostream>
+#include<vector>
+using namespace std;
+
+int r, c, cnt = 0;
+//int dish[100][100] = {0};
+
+
+void dfs(int i, int j, vector<vector<int>> &dish) {
+    if (dish[i][j] != 1) return;
+    if (i < 0 || i > r + 1 || j < 0 || j > c + 1) return;
+    dish[i][j] = 0;
+    
+    dfs(i+1,j, dish);
+    dfs(i+1,j+1, dish);
+    dfs(i+1,j-1, dish);
+    dfs(i,j+1, dish);
+    dfs(i,j-1, dish);
+    dfs(i-1,j+1, dish);
+    dfs(i-1,j, dish);
+    dfs(i-1,j-1, dish);
+}
+
+int main() {
+    //scanf("%d%d", &r, &c); 
+    cin >> r >> c;
+    char ch;
+    vector<vector<int>> dish(r, vector<int> (c, 0));
+    for (int i = 1; i <= r; ++i) {
+        for (int j = 1; j <= c; ++j) {
+            //scanf(" %c", &ch);
+            cin >> ch;
+            if (ch == '#')
+                dish[i][j] = 1;
+        }
+    } 
+
+    for (int i = 0; i <= r + 1; ++i) {
+        for (int j = 0; j <= c + 1; ++j) {
+            if (dish[i][j] == 1) {
+                dfs(i,j, dish);
+                cnt++;
+            }
+        }
+    }
+
+    //printf("%d\n", cnt);
+    cout << cnt;
+}
